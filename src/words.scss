@@ -1,7 +1,17 @@
 @import '_variables.scss';
 
 .word {
+  padding: 0 0.5em;
+  vertical-align: middle;
+  display: inline-block;
+
+  // &__inner {
+  //   display: block;
+  //   color: red;
+  // }
+
   &--ecological {
+    border-radius: 1em;
     background-color: $green;
   }
 

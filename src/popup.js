@@ -16,10 +16,15 @@
 
   const switches = document.querySelectorAll('.tools__switch');
   for (const switchElement of switches) {
+    let on = false
     switchElement.addEventListener('click', function () {
+      on = !on
       this.classList.toggle('tools__switch--active');
       const { filter } = this.dataset
-      send('filter', filter)
+      send('filter', {
+        filter,
+        on
+      })
     })
   }
 })()
