@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "name": "Getting Started Example",
+    "version": "1.0",
+    "description": "Build an Extension!",
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "permissions": ["tabs"],
+    "content_scripts": [{
+        "matches": [
+            "<all_urls>"
+        ],
+        "js": ["content.js"],
+        "css" : ["words.css"]
+    }],
+    "browser_action": {
+        "default_icon": "logo_1200px.png",
+        "default_title": "you can also add a tool tip here",
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "128": "logo_1200px.png"
+    }
+}

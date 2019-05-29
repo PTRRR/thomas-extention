@@ -1,0 +1,23 @@
+@import '_variables.scss';
+
+.word {
+  &--ecological {
+    background-color: $green;
+  }
+
+  &--social {
+    background-color: $red;
+  }
+
+  &--projection {
+    background-color: $brown;
+  }
+
+  &--mathematical {
+    background-color: $blue;
+  }
+
+  &--pol-eco {
+    background-color: $yellow;
+  }
+}
