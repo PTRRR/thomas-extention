@@ -2,11 +2,15 @@ import wordLists from '../static/word-lists'
 
 function updateDOM () {
   const elements = document.querySelectorAll('p, span, h1, h2, h3, h4');
+  
+  // Extract all #text nodes
   const flatElements = []
   for (const element of elements) {
-    tranverseElement(element, element => {
+    tranverseChilds(element, element => {
       if (element.childNodes || element.childNodes.length === 0) {
         const { innerHTML } = element
+
+        // Only take elements that don't have any HTML (#text)
         if (!innerHTML) {
           const wrappedTextNode = wrapTextNode(element)
           flatElements.push(wrappedTextNode)
@@ -15,6 +19,8 @@ function updateDOM () {
     })
   }
 
+  // Update all the #text nodes of the DOM by adding some custom elements
+  // and classes
   for (const element of flatElements) {
     for (const [key, list] of Object.entries(wordLists)) {
       for (const word of list) {
@@ -25,7 +31,7 @@ function updateDOM () {
   }
 }
 
-function wrapTextNode(textNode) {
+function wrapTextNode (textNode) {
   var spanNode = document.createElement('span');
   var newTextNode = document.createTextNode(textNode.textContent);
   spanNode.appendChild(newTextNode);
@@ -37,13 +43,13 @@ function getTransformedContent (key, word, content) {
   const regex = new RegExp(`\\b${word}\\b`, 'gi')
   return content.replace(
     regex,
-    `<span class="word word--${key}"><span class="word__inner" style="display: block">${word}</span></span>`
-    )
+    `<span class="word word--${key}">
+      <span class="word__inner">
+        ${word}
+      </span>
+    </span>`.trim()
+  )
 }
-
-chrome.runtime.onMessage.addListener(message => {
-  handleMessage(message)
-})
 
 const state = {
   ecological: false,
@@ -80,14 +86,19 @@ function applyState () {
   }
 }
 
-function tranverseElement (element, callback) {
+function tranverseChilds (element, callback) {
   if (!!element.innerHTML) {
     const { childNodes } = element
     for (const child of childNodes) {
       callback(child)
-      tranverseElement(child, callback)
+      tranverseChilds(child, callback)
     }
   }
 }
 
 updateDOM();
+
+// Listen for messages from the popup
+chrome.runtime.onMessage.addListener(message => {
+  handleMessage(message)
+})
