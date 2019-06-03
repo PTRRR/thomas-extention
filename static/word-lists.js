@@ -3,11 +3,6 @@ export default {
     "food source",
     "territory",
     "feed",
-    "sharks",
-    "month",
-    "space",
-    "constellation",
-
     "impact environnemental",
     "avion",
     "train",
@@ -18,14 +13,15 @@ export default {
     "environnement",
     "voyageurs",
     "écologiques",
-    "Cette préoccupation écologique"
+    "Cette préoccupation écologique",
+    "Florent"
   ],
 
   "social": [
-    "SpaceX",
     "jeunes",
     "honte",
-    "popularisée"
+    "popularisée",
+    "ethics question"
   ],
 
   "projection": [
@@ -36,5 +32,10 @@ export default {
   ],
   
   "pol-eco": [
+    "Washington",
+    "American Embassy",
+    "Department of Transportation",
+    "federal",
+    "business"
   ]
 }
