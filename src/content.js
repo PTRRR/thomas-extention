@@ -50,20 +50,14 @@ chrome.runtime.onMessage.addListener(message => {
 })
 
 const state = {
-  ecological: false,
-  social: false,
-  projection: false,
-  mathematical: false,
-  'pol-eco': false
+  ecological: sessionStorage.ecological || false,
+  social: sessionStorage.ecological || false,
+  projection: sessionStorage.ecological || false,
+  mathematical: sessionStorage.ecological || false,
+  'pol-eco': sessionStorage.ecological || false
 }
 
-const wordClasses = [
-  'word--ecological',
-  'word--social',
-  'word--projection',
-  'word--mathematical',
-  'word--pol-eco'
-]
+sessionStorage.hello = 'hahahahahaha'
 
 function handleMessage(message) {
   const { type, content } = message

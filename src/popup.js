@@ -1,30 +1,57 @@
 (function () {
-  let activeTabs = null;
+  let activeTabs = null
   chrome.tabs.query({
     active: true,
     currentWindow: true
   }, tabs => {
-    activeTabs = tabs;
+    activeTabs = tabs
+    updateState()
   })
 
   function send (type, content) {
     chrome.tabs.sendMessage(activeTabs[0].id, {
       type,
       content
-    });
-  } 
-
-  const switches = document.querySelectorAll('.tools__switch');
-  for (const switchElement of switches) {
-    let on = false
-    switchElement.addEventListener('click', function () {
-      on = !on
-      this.classList.toggle('tools__switch--active');
-      const { filter } = this.dataset
-      send('filter', {
-        filter,
-        on
-      })
     })
+  }
+
+  const switches = document.querySelectorAll('.tools__switch')
+  for (const switchElement of switches) {
+    switchElement.addEventListener('click', function () {
+      this.classList.toggle('tools__switch--active')
+      updateState()      
+    })
+  }
+
+  function applyInitialState () {
+    for (const switchElement of switches) {
+      const { filter } = switchElement.dataset
+      const on = getState(filter) || false
+
+      if (on) {
+        switchElement.classList.add('tools__switch--active')
+      } else {
+        switchElement.classList.remove('tools__switch--active')
+      }
+    }
+  }
+
+  function updateState () {
+    for (const switchElement of switches) {
+      const { filter } = switchElement.dataset
+      const on = switchElement.classList.contains('tools__switch--active')
+      setState(filter, on)
+      send('filter', { filter, on })
+    }
+  }
+
+  applyInitialState()
+
+  function setState (key, value) {
+    window.localStorage.setItem(key, JSON.stringify(value))
+  }
+
+  function getState (key) {
+    return JSON.parse(window.localStorage.getItem(key))
   }
 })()
