@@ -1,5 +1,26 @@
 import wordLists from '../static/word-lists'
 
+function createModalElement () {
+  const { body } =  document
+  const modal = document.createElement('div')
+  modal.classList.add('words-modal')
+  body.appendChild(modal)
+
+  const words = document.querySelectorAll('.word')
+  console.log(words.length)
+  for (const [key, list] of Object.entries(wordLists)) {
+    const elements = document.querySelectorAll(`.word--${key}`)
+
+    if (elements.length > 0) {
+      const section = document.createElement('div')
+      section.classList.add('words-modal__section')
+      section.classList.add(`words-modal--${key}`)
+      section.style.width = `${elements.length / words.length * 100}%`
+      modal.appendChild(section)
+    }
+  }
+} 
+
 function updateDOM () {
   const elements = document.querySelectorAll('p, span, h1, h2, h3, h4');
   
@@ -66,6 +87,14 @@ function handleMessage(message) {
       updateState(content)
       applyState()
       break;
+    
+    case 'modal':
+      const { body } = document
+      body.classList.toggle('no-scroll');
+      
+      const modal = document.querySelector('.words-modal')
+      modal.classList.toggle('words-modal--show')
+      break;
   }
 }
 
@@ -96,7 +125,8 @@ function tranverseChilds (element, callback) {
   }
 }
 
-updateDOM();
+updateDOM()
+createModalElement()
 
 // Listen for messages from the popup
 chrome.runtime.onMessage.addListener(message => {

@@ -65,4 +65,10 @@
   infos.addEventListener('click', () => {
     infos.classList.toggle('overlay--show')
   })
+
+  // Modal
+  const modalButton = document.querySelector('.tools__visualize')
+  modalButton.addEventListener('click', () => {
+    send('modal')
+  })
 })()
