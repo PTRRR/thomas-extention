@@ -17,7 +17,8 @@ export default {
     "écoresponsable",
     "environnement",
     "voyageurs",
-    "écologiques"
+    "écologiques",
+    "Cette préoccupation écologique"
   ],
 
   "social": [

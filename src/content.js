@@ -16,13 +16,12 @@ function updateDOM () {
   }
 
   for (const element of flatElements) {
-    const words = element.textContent.split(' ')
-    const newWords = []
-    for (const word of words) {
-      newWords.push(getTransformedWord(word))
+    for (const [key, list] of Object.entries(wordLists)) {
+      for (const word of list) {
+        const content = element.innerHTML
+        element.innerHTML = getTransformedContent(key, word, content)
+      }
     }
-
-    element.innerHTML = newWords.join(' ')
   }
 }
 
@@ -34,15 +33,12 @@ function wrapTextNode(textNode) {
   return spanNode;
 }
 
-function getTransformedWord (word) {
-  for (const [key, list] of Object.entries(wordLists)) {
-    const found = list.indexOf(word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")) > -1
-    if (found) {
-      return `<span class="word word--${key}"><span class="word__inner" style="display: block">${word}</span></span>`
-    }
-  }
-
-  return word
+function getTransformedContent (key, word, content) {
+  const regex = new RegExp(`\\b${word}\\b`, 'gi')
+  return content.replace(
+    regex,
+    `<span class="word word--${key}"><span class="word__inner" style="display: block">${word}</span></span>`
+    )
 }
 
 chrome.runtime.onMessage.addListener(message => {
@@ -50,14 +46,12 @@ chrome.runtime.onMessage.addListener(message => {
 })
 
 const state = {
-  ecological: sessionStorage.ecological || false,
-  social: sessionStorage.ecological || false,
-  projection: sessionStorage.ecological || false,
-  mathematical: sessionStorage.ecological || false,
-  'pol-eco': sessionStorage.ecological || false
+  ecological: false,
+  social: false,
+  projection: false,
+  mathematical: false,
+  'pol-eco': false
 }
-
-sessionStorage.hello = 'hahahahahaha'
 
 function handleMessage(message) {
   const { type, content } = message
