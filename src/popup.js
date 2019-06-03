@@ -17,8 +17,8 @@
 
   const switches = document.querySelectorAll('.tools__switch')
   for (const switchElement of switches) {
-    switchElement.addEventListener('click', function () {
-      this.classList.toggle('tools__switch--active')
+    switchElement.addEventListener('click', () => {
+      switchElement.classList.toggle('tools__switch--active')
       updateState()      
     })
   }
@@ -54,4 +54,15 @@
   function getState (key) {
     return JSON.parse(window.localStorage.getItem(key))
   }
+
+  // Infos
+  const infos = document.querySelector('.overlay__info')
+  const infosButton = document.querySelector('.header__infos')
+  infosButton.addEventListener('click', () => {
+    infos.classList.toggle('overlay--show')
+  })
+
+  infos.addEventListener('click', () => {
+    infos.classList.toggle('overlay--show')
+  })
 })()
