@@ -6,7 +6,7 @@
 }
 
 html, body {
-  width: 400px;
+  width: 300px;
   font-size: 18px;
   margin: 0;
   font-family: Helvetica, Arial, sans-serif;
@@ -109,13 +109,25 @@ html, body {
     justify-content: flex-start;
   }
 
-  &__switch-button {
+  &__switch-button,
+  &__visualize {
     position: relative;
     z-index: 1;
     padding: 0.1rem;
     border-radius: 2rem;
     display: inline-block;
-    width: 50%;
     text-align: center;
+  }
+
+  &__switch-button {
+    width: 50%;
+  }
+
+  &__visualize {
+    cursor: pointer;
+    width: 100%;
+    margin-top: 0.4rem;
+    background-color: black;
+    color: white;
   }
 }

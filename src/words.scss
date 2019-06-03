@@ -1,33 +1,48 @@
 @import '_variables.scss';
 
 .word {
-  padding: 0 0.5em;
-  vertical-align: middle;
-  display: inline-block;
+  $w: &;
+  vertical-align: baseline;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 
-  // &__inner {
-  //   display: block;
-  //   color: red;
-  // }
+  &__inner {
+    display: block;
+  }
+
+  &--active {
+    padding: 0 0.5em;
+  }
 
   &--ecological {
-    border-radius: 1em;
-    background-color: $green;
+    &#{$w}--active {
+      border-radius: 1em;
+      background-color: $green;
+    }
   }
 
   &--social {
-    background-color: $red;
+    &#{$w}--active {
+      background-color: $red;
+    }
   }
 
   &--projection {
-    background-color: $brown;
+    &#{$w}--active {
+      background-color: $brown;
+    }
   }
 
   &--mathematical {
-    background-color: $blue;
+    &#{$w}--active {
+      background-color: $blue;
+    }
   }
 
   &--pol-eco {
-    background-color: $yellow;
+    &#{$w}--active {
+      background-color: $yellow;
+    }
   }
 }

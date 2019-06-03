@@ -1,15 +1,15 @@
 import wordLists from '../static/word-lists'
 
 function updateDOM () {
-  const elements = document.querySelectorAll('p');
+  const elements = document.querySelectorAll('p, span, h1, h2, h3, h4');
   const flatElements = []
   for (const element of elements) {
     tranverseElement(element, element => {
       if (element.childNodes || element.childNodes.length === 0) {
         const { innerHTML } = element
         if (!innerHTML) {
-          // flatElements.push(element)
-          console.log(element)
+          const wrappedTextNode = wrapTextNode(element)
+          flatElements.push(wrappedTextNode)
         }
       }
     })
@@ -17,19 +17,26 @@ function updateDOM () {
 
   for (const element of flatElements) {
     const words = element.textContent.split(' ')
-    console.log(element.parentNode)
-    // const newWords = []
-    // for (const word of words) {
-    //   newWords.push(getTransformedWord(word))
-    // }
+    const newWords = []
+    for (const word of words) {
+      newWords.push(getTransformedWord(word))
+    }
 
-    // element.textContent = newWords.join(' ')
+    element.innerHTML = newWords.join(' ')
   }
+}
+
+function wrapTextNode(textNode) {
+  var spanNode = document.createElement('span');
+  var newTextNode = document.createTextNode(textNode.textContent);
+  spanNode.appendChild(newTextNode);
+  textNode.parentNode.replaceChild(spanNode, textNode);
+  return spanNode;
 }
 
 function getTransformedWord (word) {
   for (const [key, list] of Object.entries(wordLists)) {
-    const found = list.indexOf(word) > -1
+    const found = list.indexOf(word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")) > -1
     if (found) {
       return `<span class="word word--${key}"><span class="word__inner" style="display: block">${word}</span></span>`
     }
@@ -46,7 +53,7 @@ const state = {
   ecological: false,
   social: false,
   projection: false,
-  methematical: false,
+  mathematical: false,
   'pol-eco': false
 }
 
@@ -73,14 +80,15 @@ function updateState ({ filter, on }) {
 }
 
 function applyState () {
-  const paragraphs = document.querySelectorAll('p');
-  for (const [key, on] of Object.entries(state)) {
-    for (const paragraph of paragraphs) {
-      if (on) {
+  for (const key of Object.keys(wordLists)) {
+    const words = document.querySelectorAll(`.word--${key}`)
+    words.forEach(it => {
+      if (state[key]) {
+        it.classList.add('word--active')
       } else {
-        paragraph.classList.remove(`word--${key}`)
+        it.classList.remove('word--active')
       }
-    }
+    })
   }
 }
 
