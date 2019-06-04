@@ -44,9 +44,15 @@ function updateVisualizeModal () {
 
 function toggleModal (modalClassName) {
   body.classList.toggle('no-scroll');
-  
-  const modal = document.querySelector(modalClassName)
-  modal.classList.toggle('words-modal--show')
+  const selectedModal = document.querySelector(modalClassName)
+  const modals = document.querySelectorAll('.words-modal')
+  modals.forEach(modal => {
+    if (modal !== selectedModal) {
+      modal.classList.remove('words-modal--show')
+    } else {
+      modal.classList.toggle('words-modal--show')
+    }
+  })
 }
 
 function updateDOM () {
