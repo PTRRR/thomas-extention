@@ -5,6 +5,7 @@ body.no-scroll {
 }
 
 .words-modal {
+  cursor: pointer;
   position: fixed;
   z-index: 10000000;
   top: 0;

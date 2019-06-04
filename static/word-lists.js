@@ -1,4 +1,4 @@
-export default {
+const wordLists = {
   "ecological": [
     "food source",
     "territory",

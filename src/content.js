@@ -1,14 +1,14 @@
-import wordLists from '../static/word-lists'
+const { body } = document
 
 function createModalElement () {
-  const { body } =  document
   const modal = document.createElement('div')
   modal.classList.add('words-modal')
   body.appendChild(modal)
 
+  modal.addEventListener('click', toggleModal)
+
   const words = document.querySelectorAll('.word')
-  console.log(words.length)
-  for (const [key, list] of Object.entries(wordLists)) {
+  for (const key of Object.keys(wordLists)) {
     const elements = document.querySelectorAll(`.word--${key}`)
 
     if (elements.length > 0) {
@@ -19,7 +19,14 @@ function createModalElement () {
       modal.appendChild(section)
     }
   }
-} 
+}
+
+function toggleModal () {
+  body.classList.toggle('no-scroll');
+  
+  const modal = document.querySelector('.words-modal')
+  modal.classList.toggle('words-modal--show')
+}
 
 function updateDOM () {
   const elements = document.querySelectorAll('p, span, h1, h2, h3, h4');
@@ -89,11 +96,7 @@ function handleMessage(message) {
       break;
     
     case 'modal':
-      const { body } = document
-      body.classList.toggle('no-scroll');
-      
-      const modal = document.querySelector('.words-modal')
-      modal.classList.toggle('words-modal--show')
+      toggleModal()
       break;
   }
 }
