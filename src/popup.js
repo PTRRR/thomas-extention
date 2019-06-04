@@ -56,19 +56,14 @@
   }
 
   // Infos
-  const infos = document.querySelector('.overlay__info')
   const infosButton = document.querySelector('.header__infos')
   infosButton.addEventListener('click', () => {
-    infos.classList.toggle('overlay--show')
-  })
-
-  infos.addEventListener('click', () => {
-    infos.classList.toggle('overlay--show')
+    send('infos')
   })
 
   // Modal
   const modalButton = document.querySelector('.tools__visualize')
   modalButton.addEventListener('click', () => {
-    send('modal')
+    send('visualize')
   })
 })()

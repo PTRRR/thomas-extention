@@ -15,7 +15,6 @@ body.no-scroll {
   background-color: white;
   transition: transform 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
   transform: translateY(-100%);
-  display: flex;
   padding: 20px;
 
   &--show {
@@ -49,12 +48,17 @@ body.no-scroll {
   }
 }
 
+.words-visualize {
+  display: flex;
+}
+
 .word {
   $w: &;
   vertical-align: baseline;
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  border-radius: 1em;
 
   &__inner {
     display: block;
@@ -66,7 +70,6 @@ body.no-scroll {
 
   &--ecological {
     &#{$w}--active {
-      border-radius: 1em;
       background-color: $green;
     }
   }

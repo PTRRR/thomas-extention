@@ -1,11 +1,32 @@
 const { body } = document
 
-function createModalElement () {
-  const modal = document.createElement('div')
-  modal.classList.add('words-modal')
-  body.appendChild(modal)
+async function injectHTML () {
+  const modals = ['infos.html', 'visualize.html']
 
-  modal.addEventListener('click', toggleModal)
+  try {
+    for (const modalFile of modals) {
+      const data = await fetch(chrome.extension.getURL(modalFile))
+      const html = await data.text()
+      const modal = createElementFromHTML(html)
+      body.appendChild(modal)
+
+      modal.addEventListener('click', () => {
+        toggleModal(`.${modal.classList[1]}`)
+      })
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+function createElementFromHTML(htmlString) {
+  var div = document.createElement('div');
+  div.innerHTML = htmlString.trim();
+  return div.firstChild; 
+}
+
+function updateVisualizeModal () {
+  const modal = document.querySelector('.words-visualize')
 
   const words = document.querySelectorAll('.word')
   for (const key of Object.keys(wordLists)) {
@@ -21,10 +42,10 @@ function createModalElement () {
   }
 }
 
-function toggleModal () {
+function toggleModal (modalClassName) {
   body.classList.toggle('no-scroll');
   
-  const modal = document.querySelector('.words-modal')
+  const modal = document.querySelector(modalClassName)
   modal.classList.toggle('words-modal--show')
 }
 
@@ -95,8 +116,12 @@ function handleMessage(message) {
       applyState()
       break;
     
-    case 'modal':
-      toggleModal()
+    case 'visualize':
+      toggleModal('.words-visualize')
+      break;
+
+    case 'infos':
+      toggleModal('.words-infos')
       break;
   }
 }
@@ -128,10 +153,15 @@ function tranverseChilds (element, callback) {
   }
 }
 
-updateDOM()
-createModalElement()
+async function init () {
+  await injectHTML()
+  updateDOM()
+  updateVisualizeModal()
 
-// Listen for messages from the popup
-chrome.runtime.onMessage.addListener(message => {
-  handleMessage(message)
-})
+  // Listen for messages from the popup
+  chrome.runtime.onMessage.addListener(message => {
+    handleMessage(message)
+  })
+}
+
+init()

@@ -22,5 +22,9 @@
     },
     "icons": {
         "128": "logo_1200px.png"
-    }
+    },
+    "web_accessible_resources": [
+        "infos.html",
+        "visualize.html"
+    ]
 }
