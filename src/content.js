@@ -43,7 +43,6 @@ function updateVisualizeModal () {
 }
 
 function toggleModal (modalClassName) {
-  body.classList.toggle('no-scroll');
   const selectedModal = document.querySelector(modalClassName)
   const modals = document.querySelectorAll('.words-modal')
   modals.forEach(modal => {
@@ -53,6 +52,13 @@ function toggleModal (modalClassName) {
       modal.classList.toggle('words-modal--show')
     }
   })
+
+  const shownModals = document.querySelectorAll('.words-modal--show')
+  if (shownModals.length > 0) {
+    body.classList.add('no-scroll');
+  } else {
+    body.classList.remove('no-scroll');
+  }
 }
 
 function updateDOM () {
