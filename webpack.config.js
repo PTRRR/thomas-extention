@@ -9,7 +9,6 @@ const extractSCSS = new ExtractTextPlugin('[name]');
 const config = {
     entry: {
         'popup.js': './src/popup.js',
-        'background.js': './src/background.js',
         'content.js': './src/content.js',
         'styles.css': './src/styles.scss',
         'words.css': './src/words.scss',

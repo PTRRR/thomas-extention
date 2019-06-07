@@ -1,12 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "Getting Started Example",
+    "name": "From public to public",
     "version": "1.0",
-    "description": "Build an Extension!",
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": false
-    },
+    "description": "From public to public",
     "permissions": ["tabs"],
     "content_scripts": [{
         "matches": [

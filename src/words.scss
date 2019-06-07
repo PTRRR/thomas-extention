@@ -50,6 +50,117 @@ body.no-scroll {
 
 .words-visualize {
   display: flex;
+  flex-direction: column;
+
+  main {
+    display: flex;
+    flex: 1;
+  }
+
+  footer {
+    margin-top: 1em;
+    // height: 2em;
+
+    .sections {
+      display: flex;
+      height: 100%;
+      width: 100%;
+
+      .fptp__section {
+        flex: 1;
+        border-radius: 1em;
+        text-align: center;
+        padding: 0.5em;
+
+        p {
+          line-height: 0.95;
+        }
+      }
+    }
+  }
+}
+
+.words-infos {
+  display: flex;
+}
+
+.fptp {
+  p,
+  h1,
+  span {
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+  }
+
+  &__column {
+    flex: 1 1 auto;
+  }
+
+  &__column--title {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+  }
+
+  &__info-paragraph + &__info-paragraph {
+    text-indent: 1em;
+    margin-top: 1em;
+  }
+
+  &__column--content {
+    width: 70%;
+    padding: 0 10vw;
+    font-size: 1.5em;
+  }
+
+  &__info-title {
+    flex: 1;
+
+    span {
+      font-size: 5vw;
+      display: inline-block;
+      text-align: right;
+    }
+  }
+
+  &__info-foot {
+    padding-top: 1em;
+    display: flex;
+  }
+
+  &__info-column + &__info-column {
+    padding-left: 1em;
+  }
+
+  &__sections {
+    padding: 1em 5vw;
+
+    section {
+      text-align: center;
+      border-radius: 1em;
+    }
+  }
+
+  &--ecological {
+    background-color: $green;
+  }
+
+  &--social {
+    background-color: $red;
+  }
+
+  &--projection {
+    background-color: $brown;
+  }
+
+  &--mathematical {
+    background-color: $blue;
+  }
+
+  &--pol-eco {
+    background-color: $yellow;
+  }
 }
 
 .word {

@@ -26,7 +26,7 @@ function createElementFromHTML(htmlString) {
 }
 
 function updateVisualizeModal () {
-  const modal = document.querySelector('.words-visualize')
+  const modal = document.querySelector('.words-visualize main')
 
   const words = document.querySelectorAll('.word')
   for (const key of Object.keys(wordLists)) {
@@ -34,6 +34,8 @@ function updateVisualizeModal () {
 
     if (elements.length > 0) {
       const section = document.createElement('div')
+      const infos = document.querySelector(`.fptp--${key} .fptp__info-words`)
+      infos.innerHTML = `${elements.length} words (${(elements.length / words.length * 100).toFixed(2)}%)`
       section.classList.add('words-modal__section')
       section.classList.add(`words-modal--${key}`)
       section.style.width = `${elements.length / words.length * 100}%`
@@ -166,9 +168,11 @@ function tranverseChilds (element, callback) {
 }
 
 async function init () {
-  await injectHTML()
   updateDOM()
+  await injectHTML()
   updateVisualizeModal()
+
+  toggleModal(".words-visualize")
 
   // Listen for messages from the popup
   chrome.runtime.onMessage.addListener(message => {
