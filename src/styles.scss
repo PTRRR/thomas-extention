@@ -9,7 +9,7 @@ html, body {
   width: 300px;
   font-size: 18px;
   margin: 0;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Rima;
   font-weight: 400;
 }
 
@@ -139,7 +139,7 @@ html, body {
   &__visualize {
     position: relative;
     z-index: 1;
-    padding: 0.1rem;
+    padding: 0.1rem 0.1rem 0.25rem 0.1rem;
     border-radius: 2rem;
     display: inline-block;
     text-align: center;

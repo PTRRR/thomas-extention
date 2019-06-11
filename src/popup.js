@@ -1,4 +1,4 @@
-(function () {
+(async function () {
   let activeTabs = null
   chrome.tabs.query({
     active: true,
@@ -6,6 +6,15 @@
   }, tabs => {
     activeTabs = tabs
     updateState()
+  })
+
+  function getFileUrl (path) {
+    return chrome.extension.getURL(path);
+  }
+
+  const rima = new FontFace('Rima', `url(${getFileUrl('Rima-Book.otf')})`)
+  rima.load().then(function (font) {
+    document.fonts.add(font)
   })
 
   function send (type, content) {

@@ -1,9 +1,14 @@
 const { body } = document
 
+function getFileUrl (path) {
+  return chrome.extension.getURL(path);
+}
+
 async function loadFonts () {
-  const font = new FontFace('Ak', `url(${chrome.extension.getURL('AkzidenzGrotesk-Regular.woff')})`)
-  const fontFace = await font.load()
-  document.fonts.add(fontFace)
+  const rima = new FontFace('Rima', `url(${getFileUrl('Rima-Book.otf')})`)
+  document.fonts.add(await rima.load())
+  const ripley = new FontFace('Ripley', `url(${getFileUrl('SCRipley-NewsAC.otf')})`)
+  document.fonts.add(await ripley.load())
 }
 
 async function injectHTML () {
@@ -11,7 +16,7 @@ async function injectHTML () {
 
   try {
     for (const modalFile of modals) {
-      const data = await fetch(chrome.extension.getURL(modalFile))
+      const data = await fetch(getFileUrl(modalFile))
       const html = await data.text()
       const modal = createElementFromHTML(html)
       body.appendChild(modal)
@@ -184,8 +189,6 @@ async function init () {
   }
   
   updateVisualizeModal()
-
-  // toggleModal(".words-visualize")
 
   // Listen for messages from the popup
   chrome.runtime.onMessage.addListener(message => {

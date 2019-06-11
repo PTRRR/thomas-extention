@@ -5,8 +5,8 @@ body.no-scroll {
 }
 
 .words-modal {
+  font-size: 2rem;
   box-sizing: border-box;
-  font-family: Ak;
   cursor: pointer;
   position: fixed;
   z-index: 10000000;
@@ -18,6 +18,20 @@ body.no-scroll {
   transition: transform 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
   transform: translateY(-100%);
   padding: 20px;
+  overflow: hidden;
+  overflow-y: auto;
+
+  & * {
+    font-family: Rima;
+  }
+
+  &--ripley {
+    font-family: Ripley !important;
+  }
+
+  @media screen and(max-width: 1000px) {
+    font-size: 1.5rem;
+  }
 
   &--show {
     transform: translateY(0);
@@ -61,7 +75,6 @@ body.no-scroll {
 
   footer {
     margin-top: 1em;
-    // height: 2em;
 
     .sections {
       display: flex;
@@ -97,6 +110,7 @@ body.no-scroll {
     font-size: 1em;
     font-weight: normal;
     margin: 0;
+    line-height: 1;
   }
 
   &__column {

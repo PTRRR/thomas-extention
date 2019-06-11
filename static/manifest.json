@@ -22,6 +22,7 @@
     "web_accessible_resources": [
         "infos.html",
         "visualize.html",
-        "AkzidenzGrotesk-Regular.woff"
+        "Rima-Book.otf",
+        "SCRipley-NewsAC.otf"
     ]
 }
