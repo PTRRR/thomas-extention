@@ -21,6 +21,7 @@
     },
     "web_accessible_resources": [
         "infos.html",
-        "visualize.html"
+        "visualize.html",
+        "AkzidenzGrotesk-Regular.woff"
     ]
 }

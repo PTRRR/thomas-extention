@@ -1,5 +1,11 @@
 const { body } = document
 
+async function loadFonts () {
+  const font = new FontFace('Ak', `url(${chrome.extension.getURL('AkzidenzGrotesk-Regular.woff')})`)
+  const fontFace = await font.load()
+  document.fonts.add(fontFace)
+}
+
 async function injectHTML () {
   const modals = ['infos.html', 'visualize.html']
 
@@ -11,7 +17,8 @@ async function injectHTML () {
       body.appendChild(modal)
 
       modal.addEventListener('click', () => {
-        toggleModal(`.${modal.classList[1]}`)
+        const { className } = modal.dataset
+        toggleModal(`${className}`)
       })
     }
   } catch (e) {
@@ -45,10 +52,9 @@ function updateVisualizeModal () {
 }
 
 function toggleModal (modalClassName) {
-  const selectedModal = document.querySelector(modalClassName)
   const modals = document.querySelectorAll('.words-modal')
   modals.forEach(modal => {
-    if (modal !== selectedModal) {
+    if (!modal.classList.contains(modalClassName)) {
       modal.classList.remove('words-modal--show')
     } else {
       modal.classList.toggle('words-modal--show')
@@ -131,11 +137,11 @@ function handleMessage(message) {
       break;
     
     case 'visualize':
-      toggleModal('.words-visualize')
+      toggleModal('words-visualize')
       break;
 
     case 'infos':
-      toggleModal('.words-infos')
+      toggleModal('words-infos')
       break;
   }
 }
@@ -169,10 +175,17 @@ function tranverseChilds (element, callback) {
 
 async function init () {
   updateDOM()
-  await injectHTML()
+
+  try {
+    await loadFonts()
+    await injectHTML()
+  } catch (e) {
+    console.error(e)
+  }
+  
   updateVisualizeModal()
 
-  toggleModal(".words-visualize")
+  // toggleModal(".words-visualize")
 
   // Listen for messages from the popup
   chrome.runtime.onMessage.addListener(message => {

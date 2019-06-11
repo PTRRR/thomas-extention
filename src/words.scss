@@ -5,6 +5,8 @@ body.no-scroll {
 }
 
 .words-modal {
+  box-sizing: border-box;
+  font-family: Ak;
   cursor: pointer;
   position: fixed;
   z-index: 10000000;
@@ -67,6 +69,10 @@ body.no-scroll {
       width: 100%;
 
       .fptp__section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         flex: 1;
         border-radius: 1em;
         text-align: center;
@@ -104,8 +110,11 @@ body.no-scroll {
   }
 
   &__info-paragraph + &__info-paragraph {
-    text-indent: 1em;
     margin-top: 1em;
+  }
+
+  &--paragraph-indent + &--paragraph-indent {
+    text-indent: 1em;
   }
 
   &__column--content {
